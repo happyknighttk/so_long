@@ -1,46 +1,54 @@
 #include "so_long.h"
 
-//void	render_floor(t_game *g)
-//{
-//	mlx_put_image_to_window(g->mlx, g->win.win, g->floor, 0, 0);
-//	mlx_string_put(g->mlx, g->win.win, 50, 50, 65280, "Your Score: ");
-//}
-
-int	keycode_check(int keycode, t_game *g)
+int	keycode_check(int keycode, t_game *game)
 {
 	if (keycode == ESC)
-	{
-		mlx_clear_window(g->mlx, g->win.win);
-		sleep(1);
-		exit(0);
-	}
+		exit_or_error("Exiting via ESC", game);
+	else if (keycode == UP)
+		player_move_up(game);
+	else if (keycode == DOWN)
+		player_move_down(game);
+	else if (keycode == LEFT)
+		player_move_left(game);
+	else if (keycode == RIGHT)
+		player_move_right(game);
 	return (0);
 }
 
+int	xclose(t_game *game)
+{
+	exit_or_error("Exiting game via X", game);
+	return (0);
+}
 
-int main(int argc, char **argv)
+void	initialize_game_start(t_game *game)
+{
+	game->collectible_flag = 0;
+	game->exit_flag = 0;
+	game->player_flag = 0;
+	game->player.player_collect = 0;
+	game->player.player_move = 0;
+	game->img.img_height = 64;
+	game->img.img_width = 64;
+}
+
+
+int	main(int argc, char **argv)
 {
 	t_game	game;
 
 	if (argc != 2)
 	{
 		ft_printf("%s", "There has to be 2 arguments!");
+		system("leaks so_long");
 		return (1);
 	}
 	game.mlx = mlx_init();
-
-	//game.floor = mlx_xpm_file_to_image(game.mlx, "../burda.xpm", &(game.win.width), &(game.win.height));
- 	create_window(&game, argv);
-//	render_map(&game, argv);
-
-//	render_floor(&game);
-
-
-	mlx_key_hook(game.win.win, keycode_check, &game);
-
-
-
-
+ 	create_window(&game, argv[1]);
+	initialize_game_start(&game);
+	render_map(&game, argv[1]);
+	mlx_hook(game.win.win, 17, 1L << 2, xclose, &game);
+	mlx_hook(game.win.win, 2, 1, keycode_check, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

@@ -2,54 +2,61 @@
 
 int find_window_width(int fd)
 {
+	char	*line;
 	int		width;
-	int		read_byte;
-	char	buffer;
 
 	width = 0;
-	read_byte = read(fd, &buffer, 1);
-	while (read_byte > 0)
+	line = get_next_line(fd);
+	while (line[width])
 	{
-		if (buffer != '\n' && buffer != '\0')
+		if (line[width] != '\n')
 			width++;
-		else if (buffer == '\n')
-			break ;
-		read_byte = read(fd, &buffer, 1);
+		else
+			break;
 	}
+	free(line);
 	return (width);
 }
 
 int find_window_height(int fd)
 {
+	char	*line;
 	int		height;
-	int		read_byte;
-	char	buffer;
-	
+
 	height = 1;
-	read_byte = read(fd, &buffer, 1);
-	if (read_byte <= 0)
-		return (0);
-	while (read_byte > 0)
+	line = get_next_line(fd);
+	while (line)
 	{
-		if (buffer == '\n')
+		free(line);
+		line = get_next_line(fd);
+		if(line && line[0] != '\n')
 			height++;
-		if (buffer == '\0')
-			break;
-		read_byte = read(fd, &buffer, 1);
 	}
 	return (height);
 }
 
-void    create_window(t_game *data, char **argv)
+void    create_window(t_game *data, char *argv)
 {
 	int fd;
 
-	fd = open(argv[1], O_RDONLY);
+	if (ft_strnstr(argv, ".ber", ft_strlen(argv)) == NULL)
+	{
+		ft_printf("Error\nThe map file is not the correct format! -> correct format: [map_name].ber\n");
+		system("leaks so_long");
+		exit(1);
+	}
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("Error\nMap file not found!\n");
+		system("leaks so_long");
+		exit(1);
+	}
 	data->win.width = find_window_width(fd) * SIZE;
 	close(fd);
-	fd = open(argv[1], O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	data->win.height = find_window_height(fd) * SIZE;
 	close(fd);
 	ft_printf("width:%d\theight:%d\n", data->win.width, data->win.height);
-	data->win.win = mlx_new_window(data->mlx, data->win.width, data->win.height, "MA GAME");
+	data->win.win = mlx_new_window(data->mlx, data->win.width, data->win.height, "so_long");
 }
