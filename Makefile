@@ -6,20 +6,20 @@
 #    By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 18:01:39 by tkayis            #+#    #+#              #
-#    Updated: 2023/10/09 12:59:48 by tkayis           ###   ########.fr        #
+#    Updated: 2023/10/10 16:07:51 by tkayis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS				= main.c create_window.c render_map.c error_handling.c \
-					player_move.c \
-					./get_next_line/get_next_line.c \
-					./get_next_line/get_next_line_utils.c
+					player_move.c put_components.c update_image.c \
+					./get_next_line/get_next_line.c map_checkers.c \
+					./get_next_line/get_next_line_utils.c game_checkers.c
 	
 OBJS				= $(SRCS:.c=.o)
 	
 CC					= gcc
 RM					= rm -rf
-CFLAGS				= -Wall -Wextra -Werror -g
+CFLAGS				= -Wall -Wextra -Werror
 MLX_DIR				= ./mlx
 LIBFT_DIR			= ./libft
 LIBFT				= ./libft/libft.a

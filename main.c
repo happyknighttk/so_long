@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/09 15:49:53 by tkayis            #+#    #+#             */
+/*   Updated: 2023/10/09 15:51:40 by tkayis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	keycode_check(int keycode, t_game *game)
@@ -32,7 +44,6 @@ void	initialize_game_start(t_game *game)
 	game->img.img_width = 64;
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -44,7 +55,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	game.mlx = mlx_init();
- 	create_window(&game, argv[1]);
+	create_window(&game, argv[1]);
 	initialize_game_start(&game);
 	render_map(&game, argv[1]);
 	mlx_hook(game.win.win, 17, 1L << 2, xclose, &game);

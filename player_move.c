@@ -1,17 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_move.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/09 16:20:49 by tkayis            #+#    #+#             */
+/*   Updated: 2023/10/09 16:58:48 by tkayis           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
-
-void	put_image(t_game *game, int x, int y)
-{
-	game->img.image = mlx_xpm_file_to_image(game->mlx, game->img.path, 
-						&game->img.img_width, &game->img.img_height);
-	mlx_put_image_to_window(game->mlx, game->win.win, game->img.image, x, y);
-}
-
-void	floor_update(t_game *game)
-{
-	game->img.path = "./floor.xpm";
-	put_image(game, game->player.x, game->player.y);
-}
 
 int	player_move_check(t_game *game, int x, int y)
 {
@@ -43,7 +42,7 @@ void	player_move_up(t_game *game)
 		game->player.player_move++;
 		ft_printf("Moves: %d\n", game->player.player_move);
 		floor_update(game);
-		game->img.path = "./player_right.xpm";
+		game->img.path = "./assets/player_right.xpm";
 		game->player.x = x;
 		game->player.y = y;
 		put_image(game, x, y);
@@ -62,7 +61,7 @@ void	player_move_down(t_game *game)
 		game->player.player_move++;
 		ft_printf("Moves: %d\n", game->player.player_move);
 		floor_update(game);
-		game->img.path = "./player_right.xpm";
+		game->img.path = "./assets/player_right.xpm";
 		game->player.x = x;
 		game->player.y = y;
 		put_image(game, x, y);
@@ -81,7 +80,7 @@ void	player_move_left(t_game *game)
 		game->player.player_move++;
 		ft_printf("Moves: %d\n", game->player.player_move);
 		floor_update(game);
-		game->img.path = "./player_left.xpm";
+		game->img.path = "./assets/player_left.xpm";
 		game->player.x = x;
 		game->player.y = y;
 		put_image(game, x, y);
@@ -100,7 +99,7 @@ void	player_move_right(t_game *game)
 		game->player.player_move++;
 		ft_printf("Moves: %d\n", game->player.player_move);
 		floor_update(game);
-		game->img.path = "./player_right.xpm";
+		game->img.path = "./assets/player_right.xpm";
 		game->player.x = x;
 		game->player.y = y;
 		put_image(game, x, y);
