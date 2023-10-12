@@ -6,18 +6,18 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:25:17 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/09 16:52:04 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/12 12:48:41 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	destroy_map(char **map)
+void	destroy_map(char **map, t_game game)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (map[i] && i < game.win.height / SIZE)
 	{
 		free(map[i]);
 		i++;
@@ -28,8 +28,7 @@ void	exit_or_error(char *str, t_game *game)
 {
 	ft_printf("%s\n", str);
 	mlx_destroy_window(game->mlx, game->win.win);
-	destroy_map(game->map);
-	system("leaks so_long");
+	destroy_map(game->map, *game);
 	exit(0);
 }
 
@@ -39,7 +38,7 @@ void	component_check(t_game *game)
 	int	j;
 
 	i = 0;
-	while (game->map[i])
+	while (game->map[i] && i < game->win.height / SIZE)
 	{
 		j = 0;
 		while (game->map[i][j])
@@ -56,7 +55,7 @@ void	component_check(t_game *game)
 		exit_or_error("Error\nThere should be an exit on the map!", game);
 	if (game->player_flag != 1)
 		exit_or_error("Error\n\
-			There should be only one player on the map!", game);
+There should be only one player on the map!", game);
 }
 
 void	wall_check(t_game *game)
@@ -72,12 +71,12 @@ void	wall_check(t_game *game)
 		{
 			if ((y == 0 || x == 0) && game->map[y][x] != '1')
 				exit_or_error("Error\n\
-					The map must be surrounded by walls!", game);
+The map must be surrounded by walls!", game);
 			else if ((y == (game->win.height / SIZE - 1)
 					|| x == (game->win.width / SIZE - 1))
 				&& game->map[y][x] != '1')
 				exit_or_error("Error\n\
-					The map must be surrounded by walls!", game);
+The map must be surrounded by walls!", game);
 			x++;
 		}
 		y++;
@@ -93,7 +92,7 @@ void	line_size_check(t_game *game)
 	line = 0;
 	len = game->win.width / SIZE;
 	last_line = (game->win.height / SIZE) - 1;
-	while (game->map[line])
+	while (game->map[line] && line <= last_line)
 	{
 		if (line == last_line && ft_strlen(game->map[line]) != len)
 			exit_or_error("Error\nThe map has to be rectangular!", game);

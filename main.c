@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:49:53 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/09 15:51:40 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/12 12:42:59 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,14 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("%s", "There has to be 2 arguments!");
-		system("leaks so_long");
 		return (1);
 	}
 	game.mlx = mlx_init();
 	create_window(&game, argv[1]);
 	initialize_game_start(&game);
 	render_map(&game, argv[1]);
-	mlx_hook(game.win.win, 17, 1L << 2, xclose, &game);
-	mlx_hook(game.win.win, 2, 1, keycode_check, &game);
+	mlx_hook(game.win.win, 17, 0, xclose, &game);
+	mlx_hook(game.win.win, 2, 0, keycode_check, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

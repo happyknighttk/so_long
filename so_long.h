@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:08:07 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/10 16:06:36 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/11 20:59:29 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "./printf/ft_printf.h"
 # include "./get_next_line/get_next_line.h"
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdlib.h>
 
 # define UP		13
@@ -82,11 +83,13 @@ void	put_collectible(t_game game);
 void	floor_update(t_game *game);
 void	put_image(t_game *game, int x, int y);
 void	is_game_winnable(char **tmp_map, int x, int y);
-void	is_game_really_winnable(char **tmp_map);
+void	is_game_really_winnable(char **tmp_map, t_game game);
 void	game_check(t_game *game);
-void	destroy_map(char **map);
+void	destroy_map(char **map, t_game game);
 void	line_size_check(t_game *game);
 void	wall_check(t_game *game);
 void	component_check(t_game *game);
+void	invalid_game_exit(char **map, t_game game);
+void	malloc_error_exit(char **map, t_game game);
 
 #endif

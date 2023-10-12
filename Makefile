@@ -6,7 +6,7 @@
 #    By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/27 18:01:39 by tkayis            #+#    #+#              #
-#    Updated: 2023/10/10 16:07:51 by tkayis           ###   ########.fr        #
+#    Updated: 2023/10/11 14:06:43 by tkayis           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS				= $(SRCS:.c=.o)
 	
 CC					= gcc
 RM					= rm -rf
-CFLAGS				= -Wall -Wextra -Werror
+CFLAGS				= -Wall -Wextra -Werror -g
 MLX_DIR				= ./mlx
 LIBFT_DIR			= ./libft
 LIBFT				= ./libft/libft.a

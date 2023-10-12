@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:50:44 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/09 16:52:29 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/11 20:59:20 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,48 @@
 void	is_game_winnable(char **tmp_map, int x, int y)
 {
 	tmp_map[y][x] = 'x';
-	if (tmp_map[y][x - 1] != '1' && tmp_map[y][x - 1] != 'x')
+	if (tmp_map[y][x - 1] != '1' && tmp_map[y][x - 1] != 'x'
+		&& tmp_map[y][x - 1] != 'E')
 		is_game_winnable(tmp_map, x - 1, y);
-	if (tmp_map[y + 1][x] != '1' && tmp_map[y + 1][x] != 'x')
+	if (tmp_map[y + 1][x] != '1' && tmp_map[y + 1][x] != 'x'
+		&& tmp_map[y + 1][x] != 'E')
 		is_game_winnable(tmp_map, x, y + 1);
-	if (tmp_map[y - 1][x] != '1' && tmp_map[y - 1][x] != 'x')
+	if (tmp_map[y - 1][x] != '1' && tmp_map[y - 1][x] != 'x'
+		&& tmp_map[y - 1][x] != 'E')
 		is_game_winnable(tmp_map, x, y - 1);
-	if (tmp_map[y][x + 1] != '1' && tmp_map[y][x + 1] != 'x')
+	if (tmp_map[y][x + 1] != '1' && tmp_map[y][x + 1] != 'x'
+		&& tmp_map[y][x + 1] != 'E')
 		is_game_winnable(tmp_map, x + 1, y);
 	else
 		tmp_map[y][x] = 'x';
 }
 
-void	is_game_really_winnable(char **tmp_map)
+void	invalid_game_exit(char **map, t_game game)
+{
+	ft_printf("Error\nThe game is not winnable!\n");
+	destroy_map(map, game);
+	exit(1);
+}
+
+void	is_game_really_winnable(char **tmp_map, t_game game)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	x = 0;
-	while (tmp_map[y])
+	while (tmp_map[y] && y < game.win.height / SIZE)
 	{
-		while (tmp_map[y][x] != '\0')
+		x = 0;
+		while (tmp_map[y][x])
 		{
-			if (tmp_map[y][x] == 'E' || tmp_map[y][x] == 'C' \
-					|| tmp_map[y][x] == 'P')
-			{
-				ft_printf("bruhhhhh\n");
-				destroy_map(tmp_map);
-				exit(1);
-			}
+			if (tmp_map[y][x] == 'E')
+				if (tmp_map[y - 1][x] != 'x' && tmp_map[y + 1][x] != 'x'
+					&& tmp_map[y][x - 1] != 'x' && tmp_map[y][x + 1] != 'x')
+					invalid_game_exit(tmp_map, game);
+			if (tmp_map[y][x] == 'C' || tmp_map[y][x] == 'P')
+				invalid_game_exit(tmp_map, game);
 			x++;
 		}
-		x = 0;
 		y++;
 	}
 }
@@ -59,7 +68,7 @@ void	game_check(t_game *game)
 
 	line_size_check(game);
 	i = 0;
-	while (game->map[i])
+	while (game->map[i] && i < game->win.height / SIZE)
 	{
 		j = 0;
 		while (game->map[i][j++])

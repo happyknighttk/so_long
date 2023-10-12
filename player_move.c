@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:20:49 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/09 16:58:48 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/11 18:57:37 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	player_move_check(t_game *game, int x, int y)
 	{
 		if (game->player.player_collect != game->collectible_flag)
 			return (0);
+		game->player.player_move++;
+		ft_printf("You moved %d times.\n", game->player.player_move);
 		exit_or_error("Congratulations! You win!", game);
 	}
 	return (1);
