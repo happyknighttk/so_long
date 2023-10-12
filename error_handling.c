@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:25:17 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/12 12:48:41 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/12 13:52:42 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	component_check(t_game *game)
 	}
 	if (game->collectible_flag == 0)
 		exit_or_error("Error\nThere are no collectibles on the map!", game);
-	if (game->exit_flag == 0)
-		exit_or_error("Error\nThere should be an exit on the map!", game);
+	if (game->exit_flag != 1)
+		exit_or_error("Error\nThere should be one exit on the map!", game);
 	if (game->player_flag != 1)
 		exit_or_error("Error\n\
 There should be only one player on the map!", game);

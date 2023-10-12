@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:49:53 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/12 12:42:59 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/12 13:39:23 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,4 @@ int	main(int argc, char **argv)
 	mlx_hook(game.win.win, 17, 0, xclose, &game);
 	mlx_hook(game.win.win, 2, 0, keycode_check, &game);
 	mlx_loop(game.mlx);
-	return (0);
 }
