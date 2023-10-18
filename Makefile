@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/27 18:01:39 by tkayis            #+#    #+#              #
-#    Updated: 2023/10/11 14:06:43 by tkayis           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 SRCS				= main.c create_window.c render_map.c error_handling.c \
 					player_move.c put_components.c update_image.c \
 					./get_next_line/get_next_line.c map_checkers.c \
@@ -17,9 +5,9 @@ SRCS				= main.c create_window.c render_map.c error_handling.c \
 	
 OBJS				= $(SRCS:.c=.o)
 	
-CC					= gcc
+CC					= cc
 RM					= rm -rf
-CFLAGS				= -Wall -Wextra -Werror -g
+CFLAGS				= -Wall -Wextra -Werror
 MLX_DIR				= ./mlx
 LIBFT_DIR			= ./libft
 LIBFT				= ./libft/libft.a
@@ -30,12 +18,12 @@ PRINTF				= ./printf/libftprintf.a
 NAME			= so_long
 
 %.o: %.c
-				@make -C $(PRINTF_DIR)
-				@make -C $(LIBFT_DIR)
-				@make -C $(MLX_DIR)
 				$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):		$(OBJS)
+				@make -C $(PRINTF_DIR)
+				@make -C $(LIBFT_DIR)
+				@make -C $(MLX_DIR)
 				@$(CC) $(OBJS) $(LIBFT) $(PRINTF) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all:			$(NAME)

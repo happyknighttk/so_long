@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:15:02 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/11 18:00:16 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/18 14:25:08 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ void	create_window(t_game *data, char *argv)
 {
 	int	fd;
 
-	if (ft_strnstr(argv, ".ber", ft_strlen(argv)) == NULL)
-	{
-		ft_printf("Error\nThe map file is not the correct format!\
-		\nCorrect format: [map_name].ber\n");
-		exit(1);
-	}
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: tkayis <tkayis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:49:53 by tkayis            #+#    #+#             */
-/*   Updated: 2023/10/12 13:39:23 by tkayis           ###   ########.fr       */
+/*   Updated: 2023/10/18 14:29:46 by tkayis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,21 @@ void	initialize_game_start(t_game *game)
 	game->img.img_width = 64;
 }
 
+void	check_arg(char *str)
+{
+	char	*arg;
+	int		len;
+
+	len = ft_strlen(str) - 4;
+	arg = str + len;
+	if (ft_strncmp(arg, ".ber", 4) != 0)
+	{
+		ft_printf("Error\nThe map file is not the correct format!\
+		\nCorrect format: [map_name].ber\n");
+		exit(1);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -53,6 +68,7 @@ int	main(int argc, char **argv)
 		ft_printf("%s", "There has to be 2 arguments!");
 		return (1);
 	}
+	check_arg(argv[1]);
 	game.mlx = mlx_init();
 	create_window(&game, argv[1]);
 	initialize_game_start(&game);
